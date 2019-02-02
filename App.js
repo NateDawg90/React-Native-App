@@ -8,56 +8,45 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import PlaceInput from './src/components/PlaceInput/PlaceInput';
+import PlacesList from './src/components/PlacesList/PlacesList';
+import placeImage from './src/assets/neues-rathaus-marienplatz.jpg';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 type Props = {};
 export default class App extends Component<Props> {
   state = {
-    placeName: "",
     places: []
   };
 
-  placeNameChangedHandler = val => {
-    this.setState({
-      placeName: val
-    });
-  }
-  placeSubmitHandler = () => {
-    if (this.state.placeName.trim() === '') {
-      return;
-    }
-
+  placeAddedHandler = placeName => {
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
+        places: prevState.places.concat({
+            key: Math.random(), 
+            name: placeName,
+            image: {
+              uri: "https://cdn.vox-cdn.com/thumbor/Yt1avchDkHqEqJuhYZ3YjKF3kFc=/0x0:1700x960/1200x675/filters:focal(714x344:986x616)/cdn.vox-cdn.com/uploads/chorus_image/image/57514059/mario.0.jpg"
+            }
+        })
+      }
+    })
+  }
+
+  placeDeletedHandler = index => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter(place => {return place.key !== index;})
       }
     })
   }
 
   render() {
-    const placesOutput = this.state.places.map((place, i) => (
-      <Text key={i} >{place}</Text>
-    ))
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput 
-            style={styles.placeInput} 
-            placeholder="enter an awesome place"
-            value={this.state.placeName} 
-            onChangeText={this.placeNameChangedHandler} />
-            <Button style={styles.placeButton} title="Add" onPress={this.placeSubmitHandler} />
-        </View>
-        <View>
-          {placesOutput}
-        </View>
+        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
+        <PlacesList places={this.state.places} onItemDeleted={this.placeDeletedHandler} />
       </View>
     );
   }
@@ -70,16 +59,5 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  },
-  inputContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  placeInput: {
-    width: '70%',
-  },
-  placeButton: {
-    width: '30%'
   }
 });
