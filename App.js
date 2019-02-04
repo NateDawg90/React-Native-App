@@ -25,6 +25,7 @@ class App extends Component<Props> {
 
   placeAddedHandler = placeName => {
     this.props.addPlace(placeName);
+    console.log('Place added!')
   }
 
   placeSelectedHandler = key => {
