@@ -5,6 +5,7 @@ import AuthScreen from './src/screens/Auth/Auth';
 import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
 import PlaceDetailScreen from './src/screens/PlaceDetail/PlaceDetail';
+import SideDrawerScreen from './src/screens/SideDrawer/SideDrawer';
 
 const store = configureStore();
 
@@ -30,6 +31,12 @@ Navigation.registerComponent(
 Navigation.registerComponent(
   "awesome-places.PlaceDetailScreen", 
   () => PlaceDetailScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  "awesome-places.SideDrawerScreen", 
+  () => SideDrawerScreen,
   store,
   Provider
 );
