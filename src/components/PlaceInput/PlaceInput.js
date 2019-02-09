@@ -10,7 +10,6 @@ const PlaceInput = props => (
   />
 )
 
-
 const styles = StyleSheet.create({
 });
 
