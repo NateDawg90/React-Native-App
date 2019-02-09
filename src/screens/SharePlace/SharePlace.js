@@ -9,6 +9,10 @@ import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 
 class SharePlaceScreen extends Component {
+  static navigatorStyle = {
+    navBarButtonColor: 'orange'
+  }
+  
   state = {
     placeName: ''
   }
