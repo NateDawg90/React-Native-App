@@ -9,7 +9,6 @@
 #import <React/RCTBundleURLProvider.h>
 
 #import "RCCManager.h"
-
 #import <React/RCTRootView.h>
 
 @implementation AppDelegate
