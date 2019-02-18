@@ -34,6 +34,10 @@ class SharePlaceScreen extends Component {
         },
         touched: false
 
+      },
+      location: {
+        value: null,
+        valid: false
       }
     }
   }
@@ -42,6 +46,19 @@ class SharePlaceScreen extends Component {
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
   }
 
+  locationPickedHandler = location => {
+    this.setState(prevState => {
+      return {
+        controls: {
+          ...prevState.controls,
+          location: {
+            value: location,
+            valid: true
+          }
+        }
+      }
+    })
+  }
   placeNameChangedHandler = val => {
     this.setState(prevState => {
       return {
@@ -62,9 +79,7 @@ class SharePlaceScreen extends Component {
   }
 
   placeAddedHandler = () => {
-    if (this.state.controls.placeName.value.trim() !== "") {
-      this.props.addPlace(this.state.controls.placeName.value);
-    }
+    this.props.addPlace(this.state.controls.placeName.value, this.state.controls.location.value);
   }
 
   onNavigatorEvent = e => {
@@ -80,15 +95,19 @@ class SharePlaceScreen extends Component {
   render() {
     return (
       <KeyboardAvoidingView  style={styles.container} behavior="position" keyboardVerticalOffset={0}>
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollView} >
           <MainText >
             <HeadingText>Share a Place with us</HeadingText>
           </MainText>
           <PickImage />
-          <PickLocation />
+          <PickLocation onLocationPick={this.locationPickedHandler}/>
           <PlaceInput placeData={this.state.controls.placeName} onChangeText={this.placeNameChangedHandler}/>
           <KeyboardAvoidingView style={styles.button}>
-            <Button title='Share a Place!' onPress={this.placeAddedHandler} disabled={!this.state.controls.placeName.valid}/>
+            <Button 
+              title='Share a Place!' 
+              onPress={this.placeAddedHandler} 
+              disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid}
+            />
           </KeyboardAvoidingView>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -99,7 +118,13 @@ class SharePlaceScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    width: '100%',
+    // justifyContent: 'stretch'
+  },
+  scrollView: {
+    width: '100%',
+        alignItems: 'center',
+
   },
   placeholder: {
     borderWidth: 1,
@@ -119,7 +144,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPlace: placeName => dispatch(addPlace(placeName))
+    addPlace: (placeName, location) => dispatch(addPlace(placeName, location))
   }
 }
 
