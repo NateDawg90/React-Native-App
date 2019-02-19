@@ -1,9 +1,10 @@
 import { ADD_PLACE, DELETE_PLACE} from './actionTypes';
 
-export const addPlace = placeName => {
+export const addPlace = (name, location) => {
   return {
     type: ADD_PLACE,
-    placeName: placeName  
+    placeName: name,
+    location: location
   };
 };
 
