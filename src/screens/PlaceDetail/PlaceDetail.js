@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity, Platform, Dimensions} from 'react-native';
+import MapView from 'react-native-maps';
 import {connect} from 'react-redux';
 import {deletePlace} from '../../store/actions/index';
+
+const { width, height } = Dimensions.get("window");
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -30,14 +33,32 @@ class PlaceDetail extends Component {
   }
 
   render() {
+    console.log(StyleSheet.absoluteFillObject)
     return (
       <View style={[
         styles.container, this.state.viewMode === 'portrait' 
           ? styles.portraitContainer 
           : styles.landscapeContainer
         ]}>
-        <View style={styles.subContainer}>
-          <Image source={this.props.selectedPlace.image} style={styles.placeImage}/>
+        <View styles={styles.placeDetailContainer}>
+          <View style={styles.subContainer}>
+            <Image source={this.props.selectedPlace.image} style={styles.placeImage}/>
+          </View>
+          <View style={{flex: 1}}>
+          <MapView 
+            initialRegion={{
+              ...this.props.selectedPlace.location,
+              latitudeDelta: 0.0122,
+              longitudeDelta: 
+                Dimensions.get('window').width / 
+                Dimensions.get('window').height 
+                * 0.0122
+            }}
+            style={styles.map}
+          >
+            <MapView.Marker coordinate={this.props.selectedPlace.location} />
+          </MapView>
+          </View>
         </View>
         <View style={styles.subContainer}>
           <View>
@@ -51,6 +72,7 @@ class PlaceDetail extends Component {
             </TouchableOpacity> 
           </View>
         </View>
+
       </View>
     );
   }
@@ -67,12 +89,13 @@ const styles = StyleSheet.create({
   landscapeContainer: {
     flexDirection: 'row'
   },
-  subContainer: {
-    flex: 1
+  placeDetailContainer: {
+    flex: 2
   },
   placeImage: {
-    width: '100%',
-    height: 200 
+    flex: 1
+    // width: '100%',
+    // height: 200 
   },
   placeName: {
     fontWeight: 'bold',
@@ -81,7 +104,13 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     alignItems: "center"
-  }
+  },
+  map: {
+    flex: 1
+  },
+  subContainer: {
+    flex: 1
+  },
 });
 
 mapDispatchToProps = dispatch => {
