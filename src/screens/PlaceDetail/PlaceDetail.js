@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import { View, Image, Text, StyleSheet, TouchableOpacity, Platform, Dimensions} from 'react-native';
+import { 
+  View, 
+  Image, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Platform, 
+  Dimensions
+} from 'react-native';
 import MapView from 'react-native-maps';
 import {connect} from 'react-redux';
 import {deletePlace} from '../../store/actions/index';
@@ -45,19 +53,19 @@ class PlaceDetail extends Component {
             <Image source={this.props.selectedPlace.image} style={styles.placeImage}/>
           </View>
           <View style={{flex: 1}}>
-          <MapView 
-            initialRegion={{
-              ...this.props.selectedPlace.location,
-              latitudeDelta: 0.0122,
-              longitudeDelta: 
-                Dimensions.get('window').width / 
-                Dimensions.get('window').height 
-                * 0.0122
-            }}
-            style={styles.map}
-          >
-            <MapView.Marker coordinate={this.props.selectedPlace.location} />
-          </MapView>
+            <MapView 
+              initialRegion={{
+                ...this.props.selectedPlace.location,
+                latitudeDelta: 0.0122,
+                longitudeDelta: 
+                  Dimensions.get('window').width / 
+                  Dimensions.get('window').height 
+                  * 0.0122
+              }}
+              style={styles.map}
+            >
+              <MapView.Marker coordinate={this.props.selectedPlace.location} />
+            </MapView>
           </View>
         </View>
         <View style={styles.subContainer}>
