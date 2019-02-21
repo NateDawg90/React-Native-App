@@ -11,6 +11,7 @@ import {
 import MapView from 'react-native-maps';
 import {connect} from 'react-redux';
 import {deletePlace} from '../../store/actions/index';
+import imageUrl from '../../assets/munich.jpg';
 
 const { width, height } = Dimensions.get("window");
 
@@ -41,18 +42,18 @@ class PlaceDetail extends Component {
   }
 
   render() {
-    console.log(StyleSheet.absoluteFillObject)
     return (
       <View style={[
         styles.container, this.state.viewMode === 'portrait' 
           ? styles.portraitContainer 
           : styles.landscapeContainer
-        ]}>
-        <View styles={styles.placeDetailContainer}>
+        ]}
+      >
+        <View style={styles.placeContainer}>
           <View style={styles.subContainer}>
-            <Image source={this.props.selectedPlace.image} style={styles.placeImage}/>
+            <Image source={this.props.selectedPlace.image} style={styles.placeImage} />
           </View>
-          <View style={{flex: 1}}>
+          <View style={styles.subContainer}>
             <MapView 
               initialRegion={{
                 ...this.props.selectedPlace.location,
@@ -80,7 +81,6 @@ class PlaceDetail extends Component {
             </TouchableOpacity> 
           </View>
         </View>
-
       </View>
     );
   }
@@ -97,13 +97,17 @@ const styles = StyleSheet.create({
   landscapeContainer: {
     flexDirection: 'row'
   },
-  placeDetailContainer: {
-    flex: 2
+  placeContainer: {
+    flex: 2,
+    width: '100%',
+    justifyContent: 'space-around'
+
   },
   placeImage: {
-    flex: 1
-    // width: '100%',
-    // height: 200 
+    flex: 1,
+    width: '100%',
+    // height: 200,
+    // resizeMode: 'contain' 
   },
   placeName: {
     fontWeight: 'bold',
@@ -114,7 +118,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   map: {
-    flex: 1
+    ...StyleSheet.absoluteFillObject,
   },
   subContainer: {
     flex: 1
