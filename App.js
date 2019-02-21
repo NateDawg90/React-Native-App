@@ -6,6 +6,7 @@ import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
 import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
 import PlaceDetailScreen from './src/screens/PlaceDetail/PlaceDetail';
 import SideDrawerScreen from './src/screens/SideDrawer/SideDrawer';
+import TestScreen from './src/screens/Test/Test';
 
 const store = configureStore();
 
@@ -31,6 +32,12 @@ Navigation.registerComponent(
 Navigation.registerComponent(
   "awesome-places.PlaceDetailScreen", 
   () => PlaceDetailScreen,
+  store,
+  Provider
+);
+Navigation.registerComponent(
+  "awesome-places.TestScreen", 
+  () => TestScreen,
   store,
   Provider
 );
