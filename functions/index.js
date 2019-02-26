@@ -4,11 +4,12 @@ const fs = require('fs');
 const UUID = require('uuid-v4');
 
 const gcConfig = {
-  projectId: 'awesome-places-1550101760032',
+  projectId: 'awesome-places-232903',
   keyFilename: 'awesome-places.json'
 }
 
-const gcs = require('@google-cloud/storage', gcConfig);
+const Gcs = require('@google-cloud/storage');
+const gcs = new Gcs(gcConfig);
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
@@ -20,7 +21,7 @@ exports.storeImage = functions.https.onRequest((request, response) => {
       console.log(err);
       return response.status(500).json({ error: err})
     })
-    const bucket = gcs.bucket('awesome-places-1550101760032.appspot.com');
+    const bucket = gcs.bucket('awesome-places-232903.appspot.com');
     const uuid = UUID();
 
     return bucket.upload(

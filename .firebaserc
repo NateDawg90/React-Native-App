@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "awesome-places-1550101760032"
+    "default": "awesome-places-1550101760032",
+    "dev": "awesome-places-232903"
   }
 }

@@ -6,7 +6,8 @@ export const addPlace = (name, location, image) => {
       placeName: name,
       location: location
     }
-    fetch('https://us-central1-awesome-places-1550101760032.cloudfunctions.net/storeImage', {
+    console.log('storing image!')
+    fetch('https://us-central1-awesome-places-232903.cloudfunctions.net/storeImage', {
       method: 'POST',
       body: JSON.stringify({
         image: image.base64
