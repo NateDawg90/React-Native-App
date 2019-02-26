@@ -56,4 +56,4 @@ buck-out/
 *.jsbundle
 
 # google cloud API key
-functions/awesome-places.json
+/functions/awesome-places.json
