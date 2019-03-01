@@ -1,4 +1,7 @@
-import {ADD_PLACE, SELECT_PLACE, DESELECT_PLACE, DELETE_PLACE} from '../actions/actionTypes';
+import { 
+  SET_PLACES,
+  REMOVE_PLACE
+} from '../actions/actionTypes';
 
 const initialState = {
     places: []
@@ -6,24 +9,17 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
-    case ADD_PLACE:
+    case SET_PLACES:
       return {
         ...state,
-        places: state.places.concat({
-          key: Math.random(), 
-          name: action.placeName,
-          image: {
-            uri: action.image.uri
-          },
-          location: action.location
-        })
+        places: action.places
+      }
+    case REMOVE_PLACE:
+      return {
+        ...state,
+        places: state.places.filter(place => {return place.key !== action.key;}),
       }
 
-    case DELETE_PLACE:
-      return {
-        ...state,
-        places: state.places.filter(place => {return place.key !== action.placeKey;}),
-      }
     default:
       return state;
   }

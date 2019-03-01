@@ -11,7 +11,6 @@ import {
 import MapView from 'react-native-maps';
 import {connect} from 'react-redux';
 import {deletePlace} from '../../store/actions/index';
-import imageUrl from '../../assets/munich.jpg';
 
 const { width, height } = Dimensions.get("window");
 

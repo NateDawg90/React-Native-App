@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated} from "react-native";
 import PlacesList from '../../components/PlacesList/PlacesList';
+import { getPlaces } from '../../store/actions/index';
+
 import {connect} from 'react-redux';
 
 class FindPlaceScreen extends Component {
@@ -17,6 +19,10 @@ class FindPlaceScreen extends Component {
   constructor(props) {
     super(props);
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+  }
+
+  componentDidMount() {
+    this.props.loadPlaces(); 
   }
 
   onNavigatorEvent = e => {
@@ -52,6 +58,7 @@ class FindPlaceScreen extends Component {
 
   itemSelectedHandler = key => {
     const place = this.props.places.find(place => { return place.key === key });
+    console.log(place)
     this.props.navigator.push({
       screen: 'awesome-places.PlaceDetailScreen',
       title: place.name,
@@ -119,10 +126,17 @@ const styles = StyleSheet.create({
     fontSize: 26
   }
 })
+
 const mapStateToProps = state => {
   return {
     places: state.places.places
   }
 }
 
-export default connect(mapStateToProps)(FindPlaceScreen);
+const mapDispatchToProps = dispatch => {
+  return {
+    loadPlaces: () => dispatch(getPlaces())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FindPlaceScreen);

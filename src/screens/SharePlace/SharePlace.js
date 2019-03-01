@@ -8,7 +8,8 @@ import {
   StyleSheet, 
   ScrollView, 
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ActivityIndicator
 } from "react-native";
 
 import {addPlace} from '../../store/actions/index';
@@ -120,11 +121,18 @@ class SharePlaceScreen extends Component {
           <PickLocation onLocationPick={this.locationPickedHandler}/>
           <PlaceInput placeData={this.state.controls.placeName} onChangeText={this.placeNameChangedHandler}/>
           <KeyboardAvoidingView style={styles.button}>
-            <Button 
-              title='Share a Place!' 
-              onPress={this.placeAddedHandler} 
-              disabled={!this.state.controls.placeName.valid || !this.state.controls.location.valid || !this.state.controls.image.valid}
-            />
+          {!this.props.isLoading ?
+              <Button 
+                title='Share a Place!' 
+                onPress={this.placeAddedHandler} 
+                disabled={
+                  !this.state.controls.placeName.valid 
+                  || !this.state.controls.location.valid 
+                  || !this.state.controls.image.valid
+                }
+              />
+            : <ActivityIndicator/>
+          }
           </KeyboardAvoidingView>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -136,7 +144,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    // justifyContent: 'stretch'
   },
   scrollView: {
     width: '100%',
@@ -159,10 +166,16 @@ const styles = StyleSheet.create({
   }
 })
 
+const mapStateToProps = state => {
+  return {
+    isLoading: state.ui.isLoading
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     addPlace: (placeName, location, image) => dispatch(addPlace(placeName, location, image))
   }
 }
 
-export default connect(null, mapDispatchToProps)(SharePlaceScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(SharePlaceScreen);
