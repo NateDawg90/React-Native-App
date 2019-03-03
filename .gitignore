@@ -58,3 +58,6 @@ buck-out/
 # google cloud API keys
 /functions/awesome-places.json
 /android/app/src/main/AndroidManifest.xml
+
+# general API keys
+/src/utility/apiKeys.js
