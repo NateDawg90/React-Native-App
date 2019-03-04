@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import MainText from '../../components/UI/MainText/MainText';
+import {connect} from 'react-redux';
+import { authLogout } from '../../store/actions/index';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
 class SideDrawer extends Component {
   logOutHandler = () => {
-    alert('logout')
+    this.props.logout();
+    
   }
 
   render() {
@@ -41,4 +44,11 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
 })
-export default SideDrawer;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(authLogout())
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SideDrawer);

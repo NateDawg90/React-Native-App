@@ -3,17 +3,25 @@ import { View, Text, Button, StyleSheet, Dimensions } from 'react-native';
 import MapView from 'react-native-maps';
 
 class PickLocation extends Component {
-  state = {
-    focusedLocation: {
-      latitude: 30.2672,
-      longitude: -97.7431,
-      latitudeDelta: 0.0122,
-      longitudeDelta: 
-        Dimensions.get('window').width / 
-        Dimensions.get('window').height 
-        * 0.0122
-    },
-    locationChosen: false
+
+  componentWillMount() {
+    this.reset();
+  }
+
+  reset = () => {
+    this.setState({
+      focusedLocation: {
+        latitude: 30.2672,
+        longitude: -97.7431,
+        latitudeDelta: 0.0122,
+        longitudeDelta: 
+          Dimensions.get('window').width / 
+          Dimensions.get('window').height 
+          * 0.0122
+      },
+      locationChosen: false
+    })
+
   }
 
   pickLocationHandler = e => {
@@ -41,7 +49,6 @@ class PickLocation extends Component {
   }
 
   getLocationHandler = () => {
-    console.log('navigator: ', navigator);
     navigator.geolocation.getCurrentPosition(pos => {
       const coordsEvent = {
         nativeEvent: {
@@ -65,6 +72,7 @@ class PickLocation extends Component {
           ref={ref => this.map = ref}
           onPress={this.pickLocationHandler}
           initialRegion={this.state.focusedLocation}
+          region={!this.state.locationChosen ? this.state.focusedLocation : null}
           style={styles.map}
         >
           {this.state.locationChosen &&

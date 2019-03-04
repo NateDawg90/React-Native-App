@@ -49,9 +49,9 @@ Navigation.registerComponent(
 );
 
 // Start Navigation App
-Navigation.startSingleScreenApp({
-  screen: {
-    screen: 'awesome-places.AuthScreen',
-    title: 'Login'
-  }
+export default () => Navigation.startSingleScreenApp({
+    screen: {
+      screen: 'awesome-places.AuthScreen',
+      title: 'Login'
+    }
 });
