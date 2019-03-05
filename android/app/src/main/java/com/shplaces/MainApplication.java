@@ -1,10 +1,13 @@
-package com.rncourse;
+package com.shplaces;
 
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.imagepicker.ImagePickerPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+// import com.reactnativenavigation.NavigationReactPackage;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -13,12 +16,16 @@ import com.facebook.soloader.SoLoader;
 
 import com.reactnativenavigation.NavigationApplication;
 
+// import com.reactnativenavigation.react.NavigationReactNativeHost;
+import com.reactnativenavigation.react.ReactGateway;
+
 import com.airbnb.android.react.maps.MapsPackage;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends NavigationApplication {
+	
   @Override
 	public boolean isDebug() {
 		// Make sure you are using BuildConfig from your own application
@@ -40,4 +47,5 @@ public class MainApplication extends NavigationApplication {
 		return getPackages();
 	}
 
+	
 }
